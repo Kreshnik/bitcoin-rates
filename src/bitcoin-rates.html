@@ -1,0 +1,107 @@
+<!-- Import Polymer -->
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<polymer-element name="bitcoin-rates">
+<template>
+	<table id="exchangerates"></table>
+	<style>
+
+		table {
+			font-family: "Open Sans", arial;
+			width: 100%;
+			max-width: 600px;
+			height: 320px;
+			border-collapse: collapse;
+			border: 1px solid #38678f;
+			margin: 50px auto;
+			background: white;
+		}
+		th {
+			background: steelblue;
+			height: 54px;
+			width: 25%;
+			font-weight: lighter;
+			text-shadow: 0 1px 0 #38678f;
+			color: white;
+			border: 1px solid #38678f;
+			box-shadow: inset 0px 1px 2px #568ebd;
+			transition: all 0.2s;
+		}
+		tr {
+			border-bottom: 1px solid #cccccc;
+		}
+		tr:last-child {
+			border-bottom: 0px;
+		}
+		td {
+			border-right: 1px solid #cccccc;
+			padding: 10px;
+			transition: all 0.2s;
+		}
+		td:first-child {
+			font-weight: bold;
+			text-align: center;
+		}
+		td:last-child {
+			border-right: 0px;
+		}
+		td.selected {
+			background: #d7e4ef;
+			z-index: ;
+		}
+
+		::-moz-selection {
+			background: steelblue;
+			color: white;
+		}
+		::selection {
+			background: steelblue;
+			color: white;
+		}
+		.error{
+			text-align: center;
+			background: rgb(255, 171, 171);
+			text-transform: uppercase;
+			color: darkred;
+		}
+	</style>
+	
+</template>
+</polymer-element>
+<script>
+Polymer('bitcoin-rates', {
+    ready: function () {
+        var exchangeTable = this.$.exchangerates;
+        getRates(exchangeTable)
+        setInterval(function () {
+            getRates(exchangeTable)
+        }, 1000 * 60 * 15);
+    }
+});
+
+function getRates(exchangeTable) {
+    xhr = new XMLHttpRequest(exchangeTable);
+    exchangeTable.innerHTML = '<tr><td><img src="loader.gif" alt=""></td></tr>';
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == xhr.DONE) {
+            if (xhr.status == 200) {
+                exchangeTable.innerHTML = getRateItems(xhr.responseText);
+            } else if (xhr.status == 400) {
+                exchangeTable.innerHTML = '<tr><td class="error">There was an error fetching the rates try again.</td></tr>';
+            } else {
+                exchangeTable.innerHTML = '<tr><td class="error">There was an error fetching the rates try again.</td></tr>';
+            }
+        }
+    }
+    xhr.open("GET", "https://blockchain.info/ticker?cors=true", true);
+    xhr.send();
+}
+
+function getRateItems(json) {
+    var htmlBuffer = "<tr><th>Symbol</th><th>Currency</th><th>Last</th><th>Buy</th><th>Sell</th></tr>";
+    var json = JSON.parse(json);
+    for (var obj in json) {
+        htmlBuffer += "<tr>" + "<td>" + json[obj].symbol + "</td>" + "<td>" + obj + "</td>" + "<td>" + json[obj].last + "</td>" + "<td>" + json[obj].buy + "</td>" + "</td>" + "<td>" + json[obj].sell + "</td>" + "</tr>";
+    }
+    return htmlBuffer;
+}
+</script>

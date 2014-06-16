@@ -1,0 +1,25 @@
+{
+  "name": "bitcoin-rates",
+  "version": "0.1.0",
+  "authors": [
+    "Kreshnik Hasanaj <kreshnik.hasanaj@gmail.com>"
+  ],
+  "description": "A Web Component",
+  "license": "MIT",
+  "main": "src/bitcoin-rates.html",
+    "keywords": [
+        "polymer",
+        "web-components"
+    ]
+  "homepage": "http://ninxha.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.3.2"
+  }
+}
