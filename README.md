@@ -1,6 +1,6 @@
 # &lt;bitcoin-rates&gt;
 
-> A web component to show a bitcoin rates.
+> A web component to show bitcoin rates.
 
 ## How-to
 ```html
