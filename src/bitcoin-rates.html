@@ -71,16 +71,16 @@
 Polymer('bitcoin-rates', {
     ready: function () {
         var exchangeTable = this.$.exchangerates;
-        getRates(exchangeTable)
+        getRates(exchangeTable);
         setInterval(function () {
-            getRates(exchangeTable)
+            getRates(exchangeTable);
         }, 1000 * 60 * 15);
     }
 });
 
 function getRates(exchangeTable) {
     xhr = new XMLHttpRequest(exchangeTable);
-    exchangeTable.innerHTML = '<tr><td><img src="loader.gif" alt=""></td></tr>';
+    exchangeTable.innerHTML = '<tr><td><img src="src/loader.gif" alt=""></td></tr>';
     xhr.onreadystatechange = function () {
         if (xhr.readyState == xhr.DONE) {
             if (xhr.status == 200) {
@@ -91,16 +91,17 @@ function getRates(exchangeTable) {
                 exchangeTable.innerHTML = '<tr><td class="error">There was an error fetching the rates try again.</td></tr>';
             }
         }
-    }
+    };
     xhr.open("GET", "https://blockchain.info/ticker?cors=true", true);
     xhr.send();
 }
 
 function getRateItems(json) {
     var htmlBuffer = "<tr><th>Symbol</th><th>Currency</th><th>Last</th><th>Buy</th><th>Sell</th></tr>";
-    var json = JSON.parse(json);
-    for (var obj in json) {
-        htmlBuffer += "<tr>" + "<td>" + json[obj].symbol + "</td>" + "<td>" + obj + "</td>" + "<td>" + json[obj].last + "</td>" + "<td>" + json[obj].buy + "</td>" + "</td>" + "<td>" + json[obj].sell + "</td>" + "</tr>";
+    var jsonObj = JSON.parse(json);
+	
+	for (var obj in jsonObj) {
+        htmlBuffer += "<tr>" + "<td>" + jsonObj[obj].symbol + "</td>" + "<td>" + obj + "</td>" + "<td>" + jsonObj[obj].last + "</td>" + "<td>" + jsonObj[obj].buy + "</td>" + "</td>" + "<td>" + jsonObj[obj].sell + "</td>" + "</tr>";
     }
     return htmlBuffer;
 }
