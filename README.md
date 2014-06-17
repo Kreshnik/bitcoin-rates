@@ -11,6 +11,7 @@
 ## Maintained by
 - Kreshnik Hasanaj (Ninja)
 - E-mail: [kreshnik.hasanaj@gmail.com](mailto:kreshnik.hasanaj@gmail.com)
+- Skype: [kreshnik.hasanaj](kreshnik.hasanaj)
 - Twitter: [@KreshHanzo](http://twitter.com/KreshHanzo)
 - Web: [http://ninxha.com](http://ninxha.com)
 
