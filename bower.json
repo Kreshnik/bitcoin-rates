@@ -9,8 +9,9 @@
   "main": "src/bitcoin-rates.html",
     "keywords": [
         "polymer",
-        "web-components"
-    ]
+        "web-components",
+        "bitcoin-rates"
+    ],
   "homepage": "http://ninxha.com",
   "ignore": [
     "**/.*",
